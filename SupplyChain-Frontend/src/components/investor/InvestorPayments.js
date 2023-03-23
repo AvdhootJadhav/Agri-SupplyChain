@@ -42,7 +42,7 @@ function InvestorPayments() {
         <div className="broadcast-body">
           <h3>Pending Payments!</h3>
           <div className="container-fluid py-4">
-            <div className="row">{list}</div>
+            <div className="row">{list.length === 0 ? <p>No Pending Payments yet...</p> : list}</div>
           </div>
         </div>
       </div>

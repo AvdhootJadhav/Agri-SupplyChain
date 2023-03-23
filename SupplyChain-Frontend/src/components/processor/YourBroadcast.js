@@ -22,7 +22,7 @@ function YourBroadcast() {
 
     const list = results.map((d) => {
         return (
-            <YourBroadcastCard name={d.product_name} quantity={d.quantity} available={d.available} price={d.price}></YourBroadcastCard>
+            <YourBroadcastCard name={d.product_name} quantity={d.quantity} price={d.price}></YourBroadcastCard>
         )
     })
 

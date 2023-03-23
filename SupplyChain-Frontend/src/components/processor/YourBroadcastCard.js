@@ -2,7 +2,7 @@ import React from 'react'
 
 function YourBroadcastCard(props) {
 
-    const {name, quantity, available, price} = props
+    const { name, quantity, price } = props
 
     return (
         <div className="col-3 mb-xl-5 mb-4">
@@ -16,9 +16,6 @@ function YourBroadcastCard(props) {
                 <div className="row">
                     <div className="card-footer p-2"  >
                         <p className="mb-0"><span className="text-success text-sm font-weight-bolder" >Quantity :</span>&nbsp;&nbsp;{quantity}&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className="card-footer p-2" >
-                        <p className="mb-0"><span className="text-success text-sm font-weight-bolder" >Available :</span>&nbsp;&nbsp;{available}&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     </div>
                     <div className="card-footer p-2" >
                         <p className="mb-0"><span className="text-success text-sm font-weight-bolder" >Price :</span>&nbsp;&nbsp;₹{price}&nbsp;&nbsp;&nbsp;&nbsp;</p>

@@ -40,7 +40,7 @@ function InvestorFarmerBroadcast() {
         <div className="broadcast-body">
           <h3>Farmer Broadcasts!</h3>
           <div className="container-fluid py-4">
-            <div className="row">{list}</div>
+            <div className="row">{list.length === 0 ? <p>No Farmer Broadcast yet...</p> : list}</div>
           </div>
         </div>
       </div>
