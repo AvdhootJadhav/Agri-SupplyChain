@@ -4,7 +4,7 @@ import logo from '../images/verified.jpg'
 
 function LeftTimelineCard(props) {
 
-    const {title, admin, transaction, farmer, farm, exporter}=props
+    const { public_key, name, role, contact, address } = props
 
     return (
         <div className='timeline overflow-auto'>
@@ -15,24 +15,24 @@ function LeftTimelineCard(props) {
                             <div className='heading-row-left'>
                                 <div className='heading-container-left'>
                                     <div>
-                                        <h3>{title}</h3>
+                                        <h3>{role}</h3>
                                         <div className='d-flex'>
                                             <i className='material-icons pt-0.5 mr-1'>person</i>
-                                            <span>Admin ({admin})</span>
+                                            <span>Admin ({public_key})</span>
                                         </div>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <img className='header-image-left' src='https://www.imgonline.com.ua/examples/qr-code-url.png'></img>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='pt-3'>
-                                    <p>Transaction ID : {transaction}<i className='fa fa-check pl-2'></i></p>
+                                    <p>Transaction ID : {name}<i className='fa fa-check pl-2'></i></p>
                                     <hr />
-                                    <p>Farmer Name : {farmer}<i className='fa fa-check pl-2'></i></p>
+                                    <p>Farmer Name : {name}<i className='fa fa-check pl-2'></i></p>
                                     <hr />
-                                    <p>Farm Address : {farm}<i className='fa fa-check pl-2'></i></p>
+                                    <p>Farm Address : {address}<i className='fa fa-check pl-2'></i></p>
                                     <hr />
-                                    <p>Exporter Name : {exporter}<i className='fa fa-check pl-2'></i></p>
+                                    <p>Exporter Name : {contact}<i className='fa fa-check pl-2'></i></p>
                                     <img className='header-image2-left' src={logo}></img>
                                 </div>
                             </div>

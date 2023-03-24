@@ -925,6 +925,58 @@ app.get('/retailerOrderHistory/:id', (req, res) => {
   );
 });
 
+app.get('/getData/:crop', (req, res) => {
+  const crop = req.params["crop"]
+  db.query(
+    'SELECT * FROM users where public_key = (SELECT public_key FROM farmer_brodcast where id = ?)',
+    [crop],
+    (err, farmer) => {
+      if (farmer) {
+        db.query(
+          'SELECT * FROM users where role = ? LIMIT 1',
+          ['qualitychecker'],
+          (err, quality) => {
+            if (quality) {
+              db.query(
+                'SELECT * FROM users where public_key = (SELECT buyer FROM orders where crop_id = ?)',
+                [crop],
+                (err, processor) => {
+                  if (processor) {
+                    db.query(
+                      'SELECT * FROM users where public_key = (SELECT buyer FROM retailer where crop_id = ?)',
+                      [crop],
+                      (err, retailer) => {
+                        if (retailer) {
+                          db.query(
+                            'SELECT * FROM users where public_key IN (SELECT DISTINCT(buyer) FROM sales where crop_id = ?)',
+                            [crop],
+                            (err, customer) => {
+                              if (customer) {
+                                const response = [
+                                  farmer,
+                                  quality,
+                                  processor,
+                                  retailer,
+                                  customer
+                                ]
+                                res.send(response);
+                              }
+                            }
+                          )
+                        }
+                      }
+                    );
+                  }
+                }
+              )
+            }
+          }
+        )
+      }
+    }
+  )
+})
+
 app.listen(3001, () => {
   console.log("server is running");
 });

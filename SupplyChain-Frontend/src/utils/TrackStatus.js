@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubNav from "./SubNav";
 import Sidebar from "../components/farmer/Sidebar";
 import "../css/bootstrap.css";
@@ -12,9 +12,63 @@ import { Logger } from "ethers/lib/utils";
 import { useSelector } from "react-redux";
 import { dbActions } from "../store/dbSlice";
 import '../css/trackstatus.css'
+import axios from "axios";
+
 function TrackStatus() {
   const [id, setId] = useState("");
   const paymentAddress = useSelector((state) => state.db.address);
+
+  const [result, setResult] = useState({});
+
+  const [results, setResults] = useState([]);
+
+  const lotId = async (e) => {
+    setId(e.target.value);
+  };
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(id);
+
+    if (typeof window.ethereum !== "undefined") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      const contract = new ethers.Contract(
+        paymentAddress,
+        Payment.abi,
+        provider
+      );
+      try {
+        const data = await contract.getStatus(id);
+        const no = parseInt(data._hex, 16);
+        console.log(no);
+        setId("");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    loadData();
+  };
+
+  async function loadData() {
+    let res = [];
+    await axios.get(`http://localhost:3001/getData/${id}`)
+      .then(async (response) => {
+        setResults(await getArray(response.data));
+        console.log(response.data);
+      });
+  }
+
+  async function getArray(arr) {
+    let res = [];
+    for (const obj of arr) {
+      for (const jso of obj) {
+        res.push(jso);
+      }
+    }
+
+    return res;
+  }
+
   const data = [
     {
       title: "Farm-Inspector",
@@ -52,57 +106,31 @@ function TrackStatus() {
 
   let i = 0;
 
-  const list = data.map((d) => {
+  const list = results.map((d) => {
     if (i % 2 === 0) {
       i++;
       return (
         <LeftTimelineCard
-          admin={d.admin}
-          title={d.title}
-          transaction={d.transaction}
-          farmer={d.farmer}
-          farm={d.farm}
-          exporter={d.exporter}
+          public_key={d.public_key}
+          name={d.name}
+          role={d.role}
+          contact={d.contact}
+          address={d.address}
         ></LeftTimelineCard>
       );
     }
     i++;
     return (
       <RightTimelineCard
-        admin={d.admin}
-        title={d.title}
-        transaction={d.transaction}
-        farmer={d.farmer}
-        farm={d.farm}
-        exporter={d.exporter}
+        public_key={d.public_key}
+        name={d.name}
+        role={d.role}
+        contact={d.contact}
+        address={d.address}
       ></RightTimelineCard>
     );
   });
-  const lotId = async (e) => {
-    setId(e.target.value);
-  };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    console.log(id);
 
-    if (typeof window.ethereum !== "undefined") {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-      const contract = new ethers.Contract(
-        paymentAddress,
-        Payment.abi,
-        provider
-      );
-      try {
-        const data = await contract.getStatus(id);
-        const no = parseInt(data._hex, 16);
-        console.log(no);
-        setId("");
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
   return (
     <div className="home-body">
       <div className="left-body">
@@ -124,8 +152,6 @@ function TrackStatus() {
             </div>
           </form>
           {list}
-          <NALeftCard />
-          <NARightCard />
         </div>
       </div>
     </div>

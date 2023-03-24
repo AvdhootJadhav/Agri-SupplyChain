@@ -5,6 +5,11 @@ import InvestmentCard from './InvestmentCard'
 
 
 function Investments() {
+
+    const data = [
+        {}
+    ]
+
     return (
         <div className='home-body'>
             <div className='left-body'>
