@@ -6,7 +6,19 @@ import block from "../../images/logo-ct.png";
 import { useSelector } from "react-redux";
 import Verification from "./Verification";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import axios from "axios";
+
 function Admin() {
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/countofusers`)
+      .then((response) => {
+        setCount(response.data[0].count);
+      })
+  })
+
   return (
     <div>
       {/* navbar to display admin dashboard */}
@@ -60,7 +72,7 @@ function Admin() {
                     <i className="material-icons badal icon-blue">person</i>
                   </div>
                   <div className="col-md-6 text-right bajul">
-                    <h1 className="title">3</h1>
+                    <h1 className="title">{count}</h1>
                   </div>
                 </div>
               </div>
@@ -78,7 +90,7 @@ function Admin() {
                     <i className="material-icons badal icon-green">school</i>
                   </div>
                   <div className="col-md-6 text-right bajul">
-                    <h1 className="title">3</h1>
+                    <h1 className="title">6</h1>
                   </div>
                 </div>
               </div>

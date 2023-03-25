@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Routes, Link, Route } from "react-router-dom";
 
 
 function ProcessorSidebar(props) {
-  let { dash, pbroad, ybroad, orderDetails, fbroad, pInterest, ppayment, addreport, reportpayment, rejected, status } = props;
+  let { dash, pbroad, ybroad, orderDetails, fbroad, pInterest, ppayment, status } = props;
   return (
     <div className='sidebar-body'>
       <div className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-0 fixed-start ms-0   bg-gradient-dark" id="sidenav-main">
@@ -115,37 +115,6 @@ function ProcessorSidebar(props) {
                 </a>
               </Link>
             </li>
-            <li className="nav-item nav-tile">
-              <Link to='/processor/addreport'>
-                <a className={`nav-link text-white ${addreport ? "active bg-gradient-danger" : ""}`}>
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">table_view</i>
-                  </div>
-                  <span className="nav-link-text ms-1">Add Report</span>
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item nav-tile">
-              <Link to='/processor/reportswithpayment'>
-                <a className={`nav-link text-white ${reportpayment ? "active bg-gradient-danger" : ""}`}>
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">table_view</i>
-                  </div>
-                  <span className="nav-link-text ms-1">Reports with Payment</span>
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item nav-tile">
-              <Link to='/processor/rejected'>
-                <a className={`nav-link text-white ${rejected ? "active bg-gradient-danger" : ""}`}>
-                  <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <i className="material-icons opacity-10">table_view</i>
-                  </div>
-                  <span className="nav-link-text ms-1">Rejected Interest</span>
-                </a>
-              </Link>
-            </li>
-
           </ul>
         </div>
       </div>

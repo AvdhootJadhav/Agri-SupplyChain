@@ -31,7 +31,6 @@ function Farmer(props) {
   const list = result.map((d) => {
     return (
       <tr>
-        <td></td>
         <td className="farmer-row">
           <span className="badge bg-success">{d.crop_id}</span>
         </td>
@@ -59,6 +58,8 @@ function Farmer(props) {
         <SubNav heading="Farmer"></SubNav>
         <div className="broadcast-body">
           <Modal></Modal>
+          <br></br>
+          <h4>History ⌛</h4>
           <div className="farmer-table">
             <table
               className="table table-striped data-table"
@@ -67,12 +68,11 @@ function Farmer(props) {
             >
               <thead>
                 <tr>
-                  <th>History</th>
-                  <th>id</th>
-                  <th>name</th>
-                  <th>price</th>
-                  <th>buyer</th>
-                  <th>quantity</th>
+                  <th className="text-center">id</th>
+                  <th className="text-center">name</th>
+                  <th className="text-center">price</th>
+                  <th className="text-center">buyer</th>
+                  <th className="text-center">quantity</th>
                 </tr>
               </thead>
               <tbody>{list}</tbody>

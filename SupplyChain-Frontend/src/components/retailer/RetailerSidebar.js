@@ -5,7 +5,7 @@ import logo from '../../images/logo-ct.png'
 
 function RetailerSidebar(props) {
 
-    const {processorbroadcast, dash, prevorder, addreport, broadcastToCustomer, status} = props;
+    const { processorbroadcast, dash, prevorder, broadcastToCustomer, status } = props;
 
     return (
         <div className='sidebar-body'>
@@ -58,16 +58,6 @@ function RetailerSidebar(props) {
                                         <i className="material-icons opacity-10">table_view</i>
                                     </div>
                                     <span className="nav-link-text ms-1">Previous Orders</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li className="nav-item nav-tile">
-                            <Link to='/retailer/retailer-report'>
-                                <a className={`nav-link text-white ${addreport ? "active bg-gradient-warning" : ""}`}>
-                                    <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                        <i className="material-icons opacity-10">table_view</i>
-                                    </div>
-                                    <span className="nav-link-text ms-1">Add Report</span>
                                 </a>
                             </Link>
                         </li>

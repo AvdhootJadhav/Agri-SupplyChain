@@ -14,7 +14,6 @@ function VerificationList() {
     axios.get("http://localhost:3001/verify").then((response) => {
       results = response.data;
       setResult(results);
-      console.log(response.data);
     });
   }, [reload]);
   const approve = async (e) => {
@@ -35,6 +34,9 @@ function VerificationList() {
   };
   return (
     <React.Fragment>
+      <div class="alerty alerty-warning text-center" role="alert">
+        Total registeration requests: {result.length}
+      </div>
       {result.map((r) => {
         return (
           <div key={r.id}>

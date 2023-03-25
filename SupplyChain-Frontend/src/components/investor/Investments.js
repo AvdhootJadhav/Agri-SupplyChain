@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InvestorSidebar from './InvestorSidebar'
 import SubNav from '../../utils/SubNav'
 import InvestmentCard from './InvestmentCard'
-
+import axios from 'axios';
 
 function Investments() {
 
-    const data = [
-        {}
-    ]
+    const [result, setResult] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/getInvestments`)
+            .then((response) => {
+                setResult(response.data);
+                console.log(response.data);
+            })
+    });
+
+    const list = result.map((element) => {
+        return (
+            <InvestmentCard user={element.user} crop_name={element.crop_name} quantity={element.quantity} holding={element.holding} amount={element.amount} />
+        );
+    })
 
     return (
         <div className='home-body'>
@@ -21,7 +33,7 @@ function Investments() {
                     <h3>Investments</h3>
                     <div className='container-fluid py-4'>
                         <div className='row'>
-                            <InvestmentCard farmerId='0xA9859aD4A9d4EcE7617C8D2ab8940E983ebd309C' farmer='Mohit' crop='Bajra' amount={1000} share={5} yieldId='jdfkajdka111' location='Mumbai'></InvestmentCard>
+                            {list}
                         </div>
                     </div>
                 </div>

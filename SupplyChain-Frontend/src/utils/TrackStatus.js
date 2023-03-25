@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SubNav from "./SubNav";
 import Sidebar from "../components/farmer/Sidebar";
 import "../css/bootstrap.css";
 import LeftTimelineCard from "./LeftTimelineCard";
 import RightTimelineCard from "./RightTimelineCard";
-import NALeftCard from "./NALeftCard";
-import NARightCard from "./NARightCard";
 import Payment from "../../src/artifacts/contracts/Payment.sol/Payment.json";
 import { ethers } from "ethers";
-import { Logger } from "ethers/lib/utils";
 import { useSelector } from "react-redux";
-import { dbActions } from "../store/dbSlice";
 import '../css/trackstatus.css'
 import axios from "axios";
 
 function TrackStatus() {
   const [id, setId] = useState("");
   const paymentAddress = useSelector((state) => state.db.address);
-
-  const [result, setResult] = useState({});
-
   const [results, setResults] = useState([]);
 
   const lotId = async (e) => {
@@ -68,41 +61,6 @@ function TrackStatus() {
 
     return res;
   }
-
-  const data = [
-    {
-      title: "Farm-Inspector",
-      admin: "3314c3158152d0b40DE2",
-      farm: "Nashik",
-      farmer: "Mohit",
-      exporter: "Sarvesh",
-      transaction: "1234556",
-    },
-    {
-      title: "Farm-Inspector",
-      admin: "3314c3158152d0b40DE2",
-      farm: "Nashik",
-      farmer: "Mohit",
-      exporter: "Sarvesh",
-      transaction: "1234556",
-    },
-    {
-      title: "Farm-Inspector",
-      admin: "3314c3158152d0b40DE2",
-      farm: "Nashik",
-      farmer: "Mohit",
-      exporter: "Sarvesh",
-      transaction: "1234556",
-    },
-    {
-      title: "Farm-Inspector",
-      admin: "3314c3158152d0b40DE2",
-      farm: "Nashik",
-      farmer: "Mohit",
-      exporter: "Sarvesh",
-      transaction: "1234556",
-    },
-  ];
 
   let i = 0;
 

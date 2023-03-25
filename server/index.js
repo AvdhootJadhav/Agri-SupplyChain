@@ -293,7 +293,7 @@ app.get("/requestCreditScore/:id", (req, res) => {
 });
 app.get("/history/:id", (req, res) => {
   const id = req.params["id"];
-  db.query("SELECT * FROM orders WHERE seller = ?", [id], (err, result) => {
+  db.query("SELECT * FROM orders WHERE seller = ? ORDER BY id DESC", [id], (err, result) => {
     if (result) {
       res.send(result);
     } else {
@@ -360,7 +360,7 @@ app.get("/retailerPurchases/:id", (req, res) => {
 app.get("/processorInterest/:id", (req, res) => {
   const id = req.params["id"];
   db.query(
-    "SELECT * FROM offers WHERE buyer = ?",
+    "SELECT * FROM offers WHERE buyer = ? ORDER BY id DESC",
     [id, "open"],
 
     (err, result) => {
@@ -975,7 +975,51 @@ app.get('/getData/:crop', (req, res) => {
       }
     }
   )
-})
+});
+
+app.get('/getInvestments', (req, res) => {
+  db.query(
+    'SELECT * FROM loan WHERE status = ? ORDER BY id DESC',
+    ['paid'],
+    (err, investments) => {
+      if (investments) {
+        res.send(investments);
+      }
+      else {
+        res.send(false)
+      }
+    }
+  )
+});
+
+app.get('/getUser/:id', (req, res) => {
+  const id = req.params["id"];
+  db.query(
+    'SELECT * FROM users where public_key = ?', [id],
+    (err, result) => {
+      if (result) {
+        res.send(result);
+      }
+      else {
+        res.send(false);
+      }
+    }
+  )
+});
+
+app.get('/countofusers', (req, res) => {
+  db.query(
+    'SELECT COUNT(id) as count FROM users',
+    (err, result) => {
+      if (result) {
+        res.send(result);
+      }
+      else {
+        res.send(false);
+      }
+    }
+  )
+});
 
 app.listen(3001, () => {
   console.log("server is running");

@@ -1,7 +1,6 @@
 import React from "react";
 import QualitySidebar from "./QualitySidebar";
 import SubNav from "../../utils/SubNav";
-import ReportCard from "../processor/ReportCard";
 import QualityCard from "./QualityCard";
 import { useState, useEffect } from "react";
 import axios from "axios";

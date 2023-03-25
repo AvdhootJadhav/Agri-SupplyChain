@@ -15,14 +15,10 @@ import OrderDetails from "./components/processor/OrderDetails";
 import FarmerProductBroadcast from "./components/processor/FarmerProductBroadcast";
 import ProcessorInterest from "./components/processor/ProcessorInterest";
 import PendingPayments from "./components/processor/PendingPayments";
-import AddReport from "./components/processor/AddReport";
-import ReportsWithPayment from "./components/processor/ReportsWithPayment";
 import QualityReports from "./components/quality checker/QualityReports";
-import RejectedInterest from "./components/processor/RejectedInterest";
 import RetailerDashboard from "./components/retailer/RetailerDashboard";
 import RProcessorBroadcast from "./components/retailer/RProcessorBroadcast";
 import PreviousOrder from "./components/retailer/PreviousOrder";
-import RetailerReport from "./components/retailer/RetailerReport";
 import BroadcastToCustomer from "./components/retailer/BroadcastToCustomer";
 import CustomerDashboard from "./components/customer/CustomerDashboard";
 import CustomerRetailerBroadcast from "./components/customer/CustomerRetailerBroadcast";
@@ -36,14 +32,12 @@ import InvestorHome from "./components/investor/InvestorHome";
 import Farmer from "./components/investor/Farmer";
 import InvestorFarmerBroadcast from "./components/investor/InvestorFarmerBroadcast";
 import InvestorPayments from "./components/investor/InvestorPayments";
-import RejectedDeals from "./components/investor/RejectedDeals";
 import Investments from "./components/investor/Investments";
 import Welcome from "./components/Welcome";
 import ProcessorTracking from "./components/processor/ProcessorTracking";
 import CustomerTracking from "./components/customer/CustomerTracking";
 import RetailerTracking from "./components/retailer/RetailerTracking";
 import FarmerStatus from "./components/investor/FarmerStatus";
-import YieldBroadcast from "./components/farmer/YieldBroadcast";
 import InvestorDeals from "./components/farmer/InvestorDeals";
 import AcceptedDeals from "./components/farmer/AcceptedDeals";
 import ProtectedRoutes from "./ProtectedRoute";
@@ -90,10 +84,6 @@ function App() {
           ></Route>
           <Route path="/farmer/status" element={<TrackStatus />}></Route>
           <Route
-            path="/farmer/yieldbroadcast"
-            element={<YieldBroadcast />}
-          ></Route>
-          <Route
             path="/farmer/investordeals"
             element={<InvestorDeals />}
           ></Route>
@@ -111,7 +101,6 @@ function App() {
             path="/investor/payments"
             element={<InvestorPayments />}
           ></Route>
-          <Route path="/investor/rejected" element={<RejectedDeals />}></Route>
           <Route path="/investor/investments" element={<Investments />}></Route>
           <Route path="/investor/farmstatus" element={<FarmerStatus />}></Route>
 
@@ -142,15 +131,6 @@ function App() {
             path="/processor/payments"
             element={<PendingPayments />}
           ></Route>
-          <Route path="/processor/addreport" element={<AddReport />}></Route>
-          <Route
-            path="/processor/reportswithpayment"
-            element={<ReportsWithPayment />}
-          ></Route>
-          <Route
-            path="/processor/rejected"
-            element={<RejectedInterest />}
-          ></Route>
           <Route
             path="/processor/status"
             element={<ProcessorTracking />}
@@ -170,10 +150,6 @@ function App() {
           <Route
             path="/retailer/previousorders"
             element={<PreviousOrder />}
-          ></Route>
-          <Route
-            path="/retailer/retailer-report"
-            element={<RetailerReport />}
           ></Route>
           <Route
             path="/retailer/broadcastToCustomer"
