@@ -3,21 +3,99 @@ import "../../css/bootstrap.css";
 import "../../css/admin.css";
 import qr from "../../images/qr.png";
 import block from "../../images/logo-ct.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Verification from "./Verification";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
+import { ethers } from "ethers";
+import Payment from '../../../src/artifacts/contracts/Payment.sol/Payment.json';
 
 function Admin() {
 
   const [count, setCount] = useState(0);
-
+  const paymentAddress = useSelector((state) => state.db.address);
+  const [result, setResult] = useState([]);
+  const [test, setTest] = useState([]);
+  let track = 0;
   useEffect(() => {
     axios.get(`http://localhost:3001/countofusers`)
       .then((response) => {
         setCount(response.data[0].count);
       })
+  });
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/getAllCrops`)
+      .then((response) => {
+        setResult(response.data);
+        getTrackingStatus()
+      })
   })
+
+  const getTrackingStatus = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const contract = new ethers.Contract(
+      paymentAddress,
+      Payment.abi,
+      provider
+    );
+    let arr = []
+    for (let i in result) {
+      // console.log(i);
+      const data = await contract.getStatus(result[i].id);
+      const num = parseInt(data._hex, 16);
+      arr.push({
+        id: result[i].id,
+        val: num
+      });
+    }
+    setTest(arr);
+  }
+
+
+  const list = test.map((ele) => {
+    let a = ele.id;
+    let b = ele.val;
+    return (
+      <tr>
+        <td className="text-center">{a}</td>
+        <td className="text-center">
+          <span className={b === 0 ? 'badge bg-warning' : 'badge bg-success'}>
+            {b === 0 ? 'Processing' : 'Completed'}
+          </span>
+        </td>
+        <td className="text-center">
+          <span className={b === 1 ? 'badge bg-warning' : b < 1 ? 'badge bg-danger' : 'badge bg-success'}>
+            {b === 1 ? 'Processing' : b < 1 ? 'Not Available' : 'Completed'}
+          </span>
+        </td>
+        <td className="text-center">
+          <span className={b === 2 ? 'badge bg-warning' : b < 2 ? 'badge bg-danger' : 'badge bg-success'}>
+            {b === 2 ? 'Processing' : b < 2 ? 'Not Available' : 'Completed'}
+          </span>
+        </td>
+        <td className="text-center">
+          <span className={b === 3 ? 'badge bg-warning' : b < 3 ? 'badge bg-danger' : 'badge bg-success'}>
+            {b === 3 ? 'Processing' : b < 3 ? 'Not Available' : 'Completed'}
+          </span>
+        </td>
+        <td className="text-center">
+          <span className={b === 4 ? 'badge bg-success' : 'badge bg-danger'}>
+            {b === 4 ? 'Sold' : 'Not Sold'}
+          </span>
+        </td>
+        <td className="text-center">
+          <a
+            href="#"
+            className="btn btn-simple btn-info btn-icon like"
+          >
+            <i className="material-icons">visibility</i>
+          </a>
+        </td>
+      </tr >
+    );
+  });
 
   return (
     <div>
@@ -61,7 +139,7 @@ function Admin() {
       <div className="container-fluid spaci">
         <div className="row">
           <div className="col-md-4">
-            <div className="card card-stats choti">
+            <div className="card card-track choti">
               <div className="card-header moti" data-background-color="orange">
                 <h2 className="category">Total Users</h2>
                 <hr />
@@ -79,7 +157,7 @@ function Admin() {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card card-stats choti">
+            <div className="card card-track choti">
               <div className="card-header moti" data-background-color="green">
                 <h2 className="category">Total Roles</h2>
                 <hr />
@@ -97,7 +175,7 @@ function Admin() {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card card-stats choti">
+            <div className="card card-track choti">
               <div className="card-header moti" data-background-color="red">
                 <h2 className="category">Total Batches</h2>
                 <hr />
@@ -110,7 +188,7 @@ function Admin() {
                     </i>
                   </div>
                   <div className="col-md-6 text-right bajul">
-                    <h1 className="title">2</h1>
+                    <h1 className="title">1</h1>
                   </div>
                 </div>
               </div>
@@ -140,106 +218,19 @@ function Admin() {
                   >
                     <thead>
                       <tr>
-                        <th>Product Id</th>
-                        <th>QR-Code</th>
-                        <th>Broadcast</th>
-                        <th>Farm Inspection</th>
-                        <th>Processor</th>
-                        <th>Retailer</th>
-                        <th>Consumer</th>
+                        <th className="text-center">Product Id</th>
+                        <th className="text-center">Broadcast</th>
+                        <th className="text-center">Farm Inspection</th>
+                        <th className="text-center">Processor</th>
+                        <th className="text-center">Retailer</th>
+                        <th className="text-center">Consumer</th>
                         <th className="disabled-sorting text-center">
                           Actions
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>0x793c095009deb92846f15745043f5420cabf97ab</td>
-                        <td>
-                          <img src={qr} className="chota-hoja" />
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Sold</span>
-                        </td>
-                        <td className="text-center">
-                          <a
-                            href="#"
-                            className="btn btn-simple btn-info btn-icon like"
-                          >
-                            <i className="material-icons">visibility</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>0x793c095009deb92846f15745043f5420cabf97ab</td>
-                        <td>
-                          <img src={qr} className="chota-hoja" />
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-success">Completed</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-warning">Processing</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td className="text-center">
-                          <a
-                            href="#"
-                            className="btn btn-simple btn-info btn-icon like"
-                          >
-                            <i className="material-icons">visibility</i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>0x793c095009deb92846f15745043f5420cabf97ab</td>
-                        <td>
-                          <img src={qr} className="chota-hoja" />
-                        </td>
-                        <td>
-                          <span className="badge bg-warning">Processing</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td>
-                          <span className="badge bg-danger">Not Available</span>
-                        </td>
-                        <td className="text-center">
-                          <a
-                            href="#"
-                            className="btn btn-simple btn-info btn-icon like"
-                          >
-                            <i className="material-icons">visibility</i>
-                          </a>
-                        </td>
-                      </tr>
+                      {list}
                     </tbody>
                   </table>
                 </div>

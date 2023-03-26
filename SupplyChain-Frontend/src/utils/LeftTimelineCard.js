@@ -18,7 +18,7 @@ function LeftTimelineCard(props) {
                                         <h3>{role}</h3>
                                         <div className='d-flex'>
                                             <i className='material-icons pt-0.5 mr-1'>person</i>
-                                            <span>Admin ({public_key})</span>
+                                            <span>{public_key}</span>
                                         </div>
                                     </div>
                                     {/* <div>
@@ -26,13 +26,11 @@ function LeftTimelineCard(props) {
                                     </div> */}
                                 </div>
                                 <div className='pt-3'>
-                                    <p>Transaction ID : {name}<i className='fa fa-check pl-2'></i></p>
-                                    <hr />
                                     <p>Farmer Name : {name}<i className='fa fa-check pl-2'></i></p>
                                     <hr />
                                     <p>Farm Address : {address}<i className='fa fa-check pl-2'></i></p>
                                     <hr />
-                                    <p>Exporter Name : {contact}<i className='fa fa-check pl-2'></i></p>
+                                    <p>Contact Number : {contact}<i className='fa fa-check pl-2'></i></p>
                                     <img className='header-image2-left' src={logo}></img>
                                 </div>
                             </div>

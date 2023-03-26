@@ -1021,6 +1021,20 @@ app.get('/countofusers', (req, res) => {
   )
 });
 
+app.get('/getAllCrops', (req, res) => {
+  db.query(
+    'SELECT id from farmer_brodcast ORDER BY id DESC LIMIT 5',
+    (err, result) => {
+      if (result) {
+        res.send(result);
+      }
+      else {
+        res.send(false);
+      }
+    }
+  )
+})
+
 app.listen(3001, () => {
   console.log("server is running");
 });
