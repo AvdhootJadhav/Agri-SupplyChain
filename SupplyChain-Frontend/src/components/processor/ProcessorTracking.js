@@ -72,7 +72,7 @@ function ProcessorTracking() {
                     public_key={d.public_key}
                     name={d.name}
                     role={d.role}
-                    contact={d.contact}
+                    contact={d.number}
                     address={d.address}
                 ></LeftTimelineCard>
             );
@@ -83,7 +83,7 @@ function ProcessorTracking() {
                 public_key={d.public_key}
                 name={d.name}
                 role={d.role}
-                contact={d.contact}
+                contact={d.number}
                 address={d.address}
             ></RightTimelineCard>
         );

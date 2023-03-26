@@ -37,11 +37,11 @@ import Welcome from "./components/Welcome";
 import ProcessorTracking from "./components/processor/ProcessorTracking";
 import CustomerTracking from "./components/customer/CustomerTracking";
 import RetailerTracking from "./components/retailer/RetailerTracking";
-import FarmerStatus from "./components/investor/FarmerStatus";
 import InvestorDeals from "./components/farmer/InvestorDeals";
 import AcceptedDeals from "./components/farmer/AcceptedDeals";
 import ProtectedRoutes from "./ProtectedRoute";
 import ReturnToInvestor from "./components/farmer/ReturnToInvestor";
+import Actions from "./components/admin/Actions";
 function App() {
   return (
     <BrowserRouter>
@@ -55,6 +55,7 @@ function App() {
           {/* Admin panel */}
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/verification" element={<Verification />} />
+          <Route path="/admin/status" element={<Actions />}></Route>
           {/* Farmer Routing */}
 
           <Route path="/farmer" element={<Dashboard />}></Route>
@@ -102,7 +103,6 @@ function App() {
             element={<InvestorPayments />}
           ></Route>
           <Route path="/investor/investments" element={<Investments />}></Route>
-          <Route path="/investor/farmstatus" element={<FarmerStatus />}></Route>
 
           {/* Processor Routing */}
 
