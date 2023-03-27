@@ -22,7 +22,7 @@ function Admin() {
       .then((response) => {
         setCount(response.data[0].count);
       })
-  },);
+  }, [count]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/getAllCrops`)
@@ -30,7 +30,7 @@ function Admin() {
         setResult(response.data);
         getTrackingStatus()
       })
-  },)
+  }, [result])
 
   const clickHandler = (a) => {
     navigate('/admin/status', { state: { data: [a] } })
